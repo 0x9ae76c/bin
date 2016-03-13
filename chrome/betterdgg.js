@@ -728,7 +728,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         	},
         	update: function(userList) {
         		var res = ''
-        		userList = userList.toLowerCase().replace(' ', '').split(',')
+        		userList = userList.toLowerCase().split(' ').join('').split(',')
         		for (var i = 0; i < userList.length;i++)
         			res += template.replace('{}', userList[i]) + ','
         		res = res.substring(0, res.length - 1)
@@ -741,7 +741,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         	}
         }
     })()
-}(window.BetterDGG = window.BetterDGG || {}));
+}(window.BetterDGG = window.BetterDGG || {}))
 
 ;(function(bdgg) {
     bdgg.security = (function() {
