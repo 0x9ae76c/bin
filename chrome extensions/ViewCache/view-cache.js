@@ -1,4 +1,5 @@
-(function() {
+;(function() {
+	'use strict'
 	var Main, HTML, CSS, B64
 	var d
 
@@ -13,15 +14,15 @@
 
 			if (dataType.indexOf('image') !== -1) {
 				bin = document.querySelectorAll('pre')[2].textContent.split('\n')
-				bin = bin.slice(0, bin.length - 1)
-
-				bin = bin.map(function(line) {
+				bin.pop()
+				// Elegant and self-documenting
+				bin = bin.map(line => {
 					return line.split(': ')[1].split('  ')[0]
-				}).map(function(line) {
-					return line.split(' ').map(function(hex) {
+				}).map(line => {
+					return line.split(' ').map(hex => {
 						return Number.parseInt(("" + hex), 16)
 					})
-				}).reduce(function(a, b) {
+				}).reduce((a, b) => {
 					return a.concat(b)
 				})
 				bin = B64.base64ArrayBuffer(bin)
@@ -31,7 +32,7 @@
 		},
 		getDataType: function() {
 			var contentType = document.querySelector('pre').textContent.split('\n')
-			for (i = 0; i < contentType.length; i++) {
+			for (let i = 0; i < contentType.length; i++) {
 				if (contentType[i].indexOf('Content-Type') != -1) {
 					contentType = contentType[i].split(': ')[1]
 					break;
@@ -42,6 +43,7 @@
 	}
 
 	B64 = {
+		// Github bless
 		base64ArrayBuffer: function(arrayBuffer) {
 			var base64 = ''
 			var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
@@ -107,7 +109,6 @@
 			console.log('PEPE')
 		}
 	}
-
 
 	Main.init()
 }).call(this)
